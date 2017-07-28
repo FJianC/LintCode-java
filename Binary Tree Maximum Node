@@ -1,0 +1,26 @@
+public class Solution {
+    /**
+     * @param root the root of binary tree
+     * @return the max ndoe
+     */
+    public TreeNode maxNode(TreeNode root) {
+        // Write your code here
+        if (root == null) {
+            return null;
+        }
+        TreeNode max = root;
+        if (root.left != null) {
+            TreeNode left = maxNode(root.left);
+            if (max.val < left.val) {
+                max = left;
+            }
+        }
+        if (root.right != null) {
+            TreeNode right = maxNode(root.right);
+            if (max.val < right.val) {
+                max = right;
+            }
+        }
+        return max;
+    }
+}
