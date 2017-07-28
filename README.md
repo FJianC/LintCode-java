@@ -1,1 +1,1 @@
-# LintCode-java
+# LintCode-Java
