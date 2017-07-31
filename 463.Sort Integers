@@ -75,3 +75,47 @@ public class Solution {
         }
     }
 }
+
+//冒泡排序（外层优化）
+public class Solution {
+    public void sortIntegers(int[] A) {
+        for (int i = 0; i < A.length - 1; i++) {
+            boolean flag = true;                            //设置一个变量flag
+            for (int j = 0; j < A.length - 1 - i; j++) {
+                if (A[j] > A[j + 1]) {
+                    int temp = A[j];
+                    A[j] = A[j + 1];
+                    A[j + 1] = temp;
+                    flag = false;                           //有发生交换改变flag
+                }
+            }
+            if (flag) {                                     //没有发生交换说明以有序则退出循环
+                break;
+            }
+        }
+    }
+}
+
+//冒泡排序（内层优化）
+public class Solution {
+    public void sortIntegers(int[] A) {
+        int k = A.length - 1;
+        int pos = 0;                                        //设置一个变量pos
+        for (int i = 0; i < A.length - 1; i++) {
+            boolean flag = true;
+            for (int j = 0; j < k; j++) {
+                if (A[j] > A[j + 1]) {
+                    int temp = A[j];
+                    A[j] = A[j + 1];
+                    A[j + 1] = temp;
+                    flag = false;
+                    pos = j;                                //记录最后有发生交换的位置
+                }
+            }
+            k = pos;                                        //下次循环到最后发生交换的位置
+            if (flag) {
+                break;
+            }
+        }
+    }
+}
