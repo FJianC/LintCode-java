@@ -197,3 +197,52 @@ public class Solution {
         }
     }
 }
+
+//归并排序（递归）
+public class Solution {
+    public void sortIntegers(int[] A) {
+        mergeSort(A, 0, A.length - 1);
+    }
+    public void mergeSort(int[] A, int low, int high) {     //递归
+        int mid = (low + high) / 2;                         //将一个数组分割为只包含一个元素的数组
+        if (low < high) {                                   //再进行merge，合并数组
+            mergeSort(A, low, mid);
+            mergeSort(A, mid + 1, high);
+            merge(A, low, mid, high);
+        }
+    }
+    public void merge(int[] A, int low, int mid, int high) {//合并两个有序数组
+        int l = low;                                        //第一个数组的第一个下标为low，最后一个下标为mid
+        int h = mid + 1;                                    //第二个数组第一个下标为mid+1，最后一个下标为high
+        int k = 0;
+        int[] temp = new int[high - low + 1];               //创建临时数组temp
+        while (l <= mid && h <= high) {
+            if (A[l] <= A[h]) {                             //两个数组比较后，符合条件的元素复制入临时数组
+                temp[k] = A[l];
+                l++;
+                k++;
+            } else {
+                temp[k] = A[h];
+                h++;
+                k++;
+            }
+        }
+        while (l <= mid) {                                  //第一个数组还存在元素，全部复制到临时数组
+            temp[k] = A[l];
+            l++;
+            k++;
+        }
+        while (h <= high) {                                 //第二个数组还存在元素，全部复制到临时数组
+            temp[k] = A[h];
+            h++;
+            k++;
+        }
+        k = 0;
+        for (int i = low; i <= high; i++) {                 //临时数组复制到原数组
+            A[i] = temp[k];
+            k++;
+        }
+    }
+}
+
+//归并排序（非递归）
