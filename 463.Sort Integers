@@ -76,44 +76,25 @@ public class Solution {
     }
 }
 
-//冒泡排序（外层优化）
-public class Solution {
-    public void sortIntegers(int[] A) {
-        for (int i = 0; i < A.length - 1; i++) {
-            boolean flag = true;                            //设置一个变量flag
-            for (int j = 0; j < A.length - 1 - i; j++) {
-                if (A[j] > A[j + 1]) {
-                    int temp = A[j];
-                    A[j] = A[j + 1];
-                    A[j + 1] = temp;
-                    flag = false;                           //有发生交换改变flag
-                }
-            }
-            if (flag) {                                     //没有发生交换说明以有序则退出循环
-                break;
-            }
-        }
-    }
-}
 
-//冒泡排序（内层优化）
+//冒泡排序优化
 public class Solution {
     public void sortIntegers(int[] A) {
         int k = A.length - 1;
         int pos = 0;                                        //设置一个变量pos
         for (int i = 0; i < A.length - 1; i++) {
-            boolean flag = true;
+            boolean flag = true;                            //设置一个变量flag
             for (int j = 0; j < k; j++) {
                 if (A[j] > A[j + 1]) {
                     int temp = A[j];
                     A[j] = A[j + 1];
                     A[j + 1] = temp;
-                    flag = false;
+                    flag = false;                           //有发生交换则改变flag
                     pos = j;                                //记录最后有发生交换的位置
                 }
             }
             k = pos;                                        //下次循环到最后发生交换的位置
-            if (flag) {
+            if (flag) {                                     //没有发生交换说明以有序则退出循环
                 break;
             }
         }
@@ -198,7 +179,7 @@ public class Solution {
     }
 }
 
-//归并排序（递归）
+//归并排序（递归）自顶向下
 public class Solution {
     public void sortIntegers(int[] A) {
         mergeSort(A, 0, A.length - 1);
@@ -245,4 +226,55 @@ public class Solution {
     }
 }
 
-//归并排序（非递归）
+//归并排序（非递归）自底向上
+public class Solution {
+    public void sortIntegers(int[] A) {
+        int low;
+        int mid;
+        int high;
+        for (int size = 1; size < A.length; size *= 2) {    //有序数组大小为变量size
+            low = 0;                                        //有序数组的第一个元素的位置为变量low
+            while (low + size <= A.length - 1) {            //low+size下一个有序数组的第一个元素下标
+                mid = low + size - 1;                       //有序数组的最后一个元素下标为变量mid
+                high = mid + size;                          //下一个有序数组的最后一个元素下标为变量high
+                if (high > A.length - 1) {                  //下一个有序数组的大小不够size
+                    high = A.length - 1;
+                }
+                merge(A, low, mid, high);                   //归并函数
+                low = high + 1;                             //low变为下一组需归并的第一个有序数组的第一个元素的位置
+            }
+        }
+    }
+    public void merge(int[] A, int low, int mid, int high) {//归并函数
+        int l = low;
+        int h = mid + 1;
+        int k = 0;
+        int[] temp = new int[high - low + 1];
+        while (l <= mid && h <= high) {
+            if (A[l] <= A[h]) {
+                temp[k] = A[l];
+                l++;
+                k++;
+            } else {
+                temp[k] = A[h];
+                h++;
+                k++;
+            }
+        }
+        while (l <= mid) {
+            temp[k] = A[l];
+            l++;
+            k++;
+        }
+        while (h <= high) {
+            temp[k] = A[h];
+            h++;
+            k++;
+        }
+        k = 0;
+        for (int i = low; i <= high; i++) {
+            A[i] = temp[k];
+            k++;
+        }
+    }
+}
