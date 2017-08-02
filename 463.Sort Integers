@@ -291,7 +291,12 @@ public class Solution {
             HeapAdjust(A, 0, i);                            //再将堆进行堆调整即找到最大值（堆顶）
         }
     }
-    public void HeapAdjust(int[] A, int parent, int size) { //堆调整函数
+    public void BuildHeap(int[] A, int size) {              //建堆函数
+        for (int i = size / 2 - 1; i >= 0; i--) {           //非叶子结点即有孩子的父母才能堆调整
+            HeapAdjust(A, i, size);                         //从数组后面往前不断进行堆调整
+        }
+    }
+    public void HeapAdjust(int[] A, int parent, int size) { //堆调整函数（递归版）
         int lChild = 2 * parent + 1;
         int rChild = 2 * parent + 2;
         int max = parent;                                   //变量max记录比父母大的孩子的位置
@@ -308,9 +313,20 @@ public class Solution {
             HeapAdjust(A, max, size);                       //递归调节子树为堆即最大孩子变为父母
         }
     }
-    public void BuildHeap(int[] A, int size) {              //建堆函数
-        for (int i = size / 2 - 1; i >= 0; i--) {               //非叶子结点即有孩子的父母才能堆调整
-            HeapAdjust(A, i, size);                         //从数组后面往前不断进行堆调整
+    public void HeapAdjust(int[] A, int parent, int size) { //堆调整函数（非递归）
+        int temp  = A[parent];
+        int child = 2 * parent + 1;                         //变量child为左孩子（child+1为右孩子）
+        while (child < size) {
+            if(child + 1 < size && A[child] < A[child + 1]) {
+                child++;                                    //右孩子比左大则孩子变右
+            }
+            if(A[parent] >= A[child]) {                     //父母比孩子大则不需调整（最小堆符号改为<=）
+                break;
+            }
+            A[parent] = A[child];                           //子结点交换父结点
+            A[child] = temp;
+            parent = child;                                 //重新设置父结点（child为parent）
+            child = 2 * child + 1;                          //重新设置子节点（child为child的child）
         }
     }
 }
