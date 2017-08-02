@@ -323,7 +323,7 @@ public class Solution {
             if(A[parent] >= A[child]) {                     //父母比孩子大则不需调整（最小堆符号改为<=）
                 break;
             }
-            A[parent] = A[child];                           //子结点交换父结点
+            A[parent] = A[child];                           //子结点与父结点交换
             A[child] = temp;
             parent = child;                                 //重新设置父结点（child为parent）
             child = 2 * child + 1;                          //重新设置子节点（child为child的child）
