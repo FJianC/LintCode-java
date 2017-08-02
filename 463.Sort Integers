@@ -278,3 +278,39 @@ public class Solution {
         }
     }
 }
+
+//堆排序
+public class Solution {
+    public void sortIntegers(int[] A) {                     //数组前为无序区后为有序区，堆为无序
+        int size = A.length;
+        BuildHeap(A, size);                                 //建堆，ps：堆是从下往上建的
+        for (int i = size - 1; i > 0; i--) {                //变量i为无序区长度
+            int temp = A[0];                                //将堆顶与堆最后元素交换即堆顶插入到有序区
+            A[0] = A[i];
+            A[i] = temp;
+            HeapAdjust(A, 0, i);                            //再将堆进行堆调整即找到最大值（堆顶）
+        }
+    }
+    public void HeapAdjust(int[] A, int parent, int size) { //堆调整函数
+        int lChild = 2 * parent + 1;
+        int rChild = 2 * parent + 2;
+        int max = parent;                                   //变量max记录比父母大的孩子的位置
+        if (lChild < size && A[lChild] > A[max]) {          //改变大小符号可建最大最小堆，现为最大堆
+            max = lChild;
+        }
+        if (rChild < size && A[rChild] > A[max]) {
+            max = rChild;
+        }
+        if (max != parent) {                                //max不等于parent则说明有孩子比父母大
+            int temp = A[parent];                           //把当前结点与最大子节点交换
+            A[parent] = A[max];
+            A[max] = temp;
+            HeapAdjust(A, max, size);                       //递归调节子树为堆即最大孩子变为父母
+        }
+    }
+    public void BuildHeap(int[] A, int size) {              //建堆函数
+        for (int i = size / 2; i >= 0; i--) {               //非叶子结点即有孩子的父母才能堆调整
+            HeapAdjust(A, i, size);                         //从数组后面往前不断进行堆调整
+        }
+    }
+}
