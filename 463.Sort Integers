@@ -309,7 +309,7 @@ public class Solution {
         }
     }
     public void BuildHeap(int[] A, int size) {              //建堆函数
-        for (int i = size / 2; i >= 0; i--) {               //非叶子结点即有孩子的父母才能堆调整
+        for (int i = size / 2 - 1; i >= 0; i--) {               //非叶子结点即有孩子的父母才能堆调整
             HeapAdjust(A, i, size);                         //从数组后面往前不断进行堆调整
         }
     }
