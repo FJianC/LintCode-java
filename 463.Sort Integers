@@ -336,11 +336,11 @@ public class Solution {
     public void sortIntegers(int[] A) {
         quickSort(A, 0, A.length - 1);
     }
-    public void quickSort(int[] A, int left, int right) {     //变量left为数组第一个位置，变量right为数组最后一个位置
-        if (left < right) {                                   //只有一个元素的数组是有序数组
-            int l = left;                                    //变量l 为比参照值大的数的位置
-            int r = right;                                   //变量r 为比参照值小的数的的位置
-            int key = A[left];                               //参照值（即第一个位置空出来）
+    public void quickSort(int[] A, int left, int right) {   //变量left为数组第一个位置，变量right为数组最后一个位置
+        if (left < right) {                                 //只有一个元素的数组是有序数组
+            int l = left;                                   //变量l 为比参照值大的数的位置
+            int r = right;                                  //变量r 为比参照值小的数的的位置
+            int key = A[left];                              //参照值（即第一个位置空出来）
             while (l < r) {                                 //将数组一分为二
                 while (l < r && key <= A[r]) {              //记录变量r 的位置，找到在右部分比参照值小的数
                     r--;
@@ -358,8 +358,8 @@ public class Solution {
                 }
             }
             A[l] = key;                                     //将在开始被拿出来参照值放回数组
-            quickSort(A, left, l - 1);                       //递归左部分
-            quickSort(A, l + 1, right);                      //递归右部分
+            quickSort(A, left, l - 1);                      //递归左部分
+            quickSort(A, l + 1, right);                     //递归右部分
         }
     }
 }
