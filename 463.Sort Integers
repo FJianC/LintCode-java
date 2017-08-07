@@ -271,7 +271,7 @@ public class Solution {
             }
         }
     }
-    public void merge(int[] A, int low, int mid, int high) {//归并函数
+    public void merge(int[] A, int low, int mid, int high) {//归并函数（同上）
         int l = low;
         int h = mid + 1;
         int k = 0;
