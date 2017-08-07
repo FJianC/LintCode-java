@@ -101,6 +101,32 @@ public class Solution {
     }
 }
 
+//鸡尾酒冒泡排序
+public class Solution {
+    public void sortIntegers(int[] A) {
+        int left = 0;
+        int right = A.length - 1;
+        while (left < right) {
+            for (int i = left; i < right; i++) {            //把最大元素放到后面
+                if (A[i] > A[i + 1]) {
+                    int temp = A[i];
+                    A[i] = A[i + 1];
+                    A[i + 1] = temp;
+                }
+            }
+            right--;
+            for (int i = right; i > left; i--) {            //把最小元素放到前面
+                if (A[i] < A[i - 1]) {
+                    int temp = A[i];
+                    A[i] = A[i - 1];
+                    A[i - 1] = temp;
+                }
+            }
+            left++;
+        }
+    }
+}
+
 //直接插入排序（后往前查找插入位置）
 public class Solution {
     public void sortIntegers(int[] A) {
