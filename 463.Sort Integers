@@ -389,3 +389,44 @@ public class Solution {
         }
     }
 }
+
+//基数排序（正数）
+public class Solution {
+    public void sortIntegers(int[] A) {
+        int max = 0;
+        for (int i = 0; i < A.length; i++) {                //找出数组中最大的数
+            if (max < A[i]) {
+                max = A[i];
+            }
+        }
+        int maxLength = 0;
+        while (max > 0) {                                   //计算最大的数的位数
+            max /= 10;
+            maxLength++;
+        }
+        final int radix = 10;                               //位上的数0~9
+        int[] count = new int[radix];                       //记录数组（桶）装位上的数相同的元素
+        int[] bucket = new int[A.length];                   //辅助数组
+        for (int k = 1; k <= maxLength; k++) {              //变量k 是位数
+            for (int i = 0; i < A.length; i++) {            //计算每个桶将要储存的数据个数
+                int d = getDigit(A[i], k);
+                count[d]++;
+            }
+            for (int i = 1; i < radix; i++) {               //计录每个桶的右边界
+                count[i] += count[i - 1];
+            }
+            for (int i = A.length - 1; i >= 0; i--) {       //从右向左扫描
+                int d = getDigit(A[i], k);
+                bucket[count[d] - 1] = A[i];                //将数放进对应的桶中
+                count[d]--;
+            }
+            for (int i = 0; i < A.length; i++) {            //收集桶中的数据
+                A[i] = bucket[i];
+            }
+        }
+    }
+    public int getDigit(int num, int digit) {               //用于的到位上的数的函数
+        int a[] = {1, 1, 10, 100, 1000, 10000, 100000};
+        return ((num / a[digit]) % 10);
+    }
+}
